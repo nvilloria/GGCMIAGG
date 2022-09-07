@@ -2,15 +2,16 @@
 % Please edit documentation in R/grid.agg.r
 \name{grid.agg}
 \alias{grid.agg}
-\title{Aggregates yield data to regions}
+\title{Aggregates GGCMI yield data to regions}
 \usage{
 grid.agg(data2agg = NULL, region.map = "countries", weight.map = NULL)
 }
 \arguments{
 \item{data2agg}{A dataframe produced by \code{read.GGCMI.RData()}}
 
-\item{region.map}{A regional mapping. Current options are are
-"countries" and "countriesAEZ18". Default is "countries".}
+\item{region.map}{A regional mapping. Current options are
+"countries", "regionsGTAPV10.1" and "countriesAEZ18". Default
+is "countries".}
 
 \item{weight.map}{Either NULL (when 'weights' = "none" in
 'agg.wrapper()') or the output of 'read.weights()'}
@@ -21,6 +22,9 @@ regional identifier), year, and the grid-cell weighted average
 of relative yields.
 }
 \description{
+This function should work with either CMIP5 or CMIP6 yields.
+}
+\details{
 Aggregates from the gridcell to the regions in region.map. The
 function \link[GGCMIAGG]{read.GGCMI.RData} (or \code{read.AgMIP.nc} in
 the previous version of the tool) produces the input to

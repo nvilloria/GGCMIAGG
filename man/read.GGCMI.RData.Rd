@@ -2,7 +2,7 @@
 % Please edit documentation in R/read.GGCMI.RData.r
 \name{read.GGCMI.RData}
 \alias{read.GGCMI.RData}
-\title{Reads RData files with GGCMI yields}
+\title{Reads RData files with GGCMI-CMIP6 yields in RData format}
 \usage{
 read.GGCMI.RData(datafile = NULL, crop = NULL)
 }
@@ -11,8 +11,8 @@ read.GGCMI.RData(datafile = NULL, crop = NULL)
 provided by Jonas, inclusive of path e.g
 "../data/dssat-pythia_gfdl-esm4_ssp126_default_production_and_yield_grid.RData"}
 
-\item{crop}{One of "maize", "winter_wheat",
-"spring_wheat","soybeans", or "rice".}
+\item{crop}{One of "maize", "winter_wheat", "spring_wheat",
+"soybeans", "wheat", or "rice".}
 }
 \value{
 A four-column dataframe
@@ -24,7 +24,8 @@ variables to a lower resolution with the weights produced by
 'read.weights()`.
 }
 \description{
-Function to read yield data (relative changes in percent compared
-with the reference period 1983-2013) from the third (?) generation
-of GGCMI runs provided by Jonas Jagermeyr on June 01, 2022.
+Reads yield data (relative changes in percent compared with the
+reference period 1983-2013) from the CMIP6 generation of GGCMI runs
+provided by Jonas Jagermeyr on June 01, 2022. See \href{https://www.nature.com/articles/s43016-021-00400-y}{Jagermeyr et al.} for
+description.
 }

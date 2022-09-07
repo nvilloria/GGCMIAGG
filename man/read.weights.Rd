@@ -2,30 +2,31 @@
 % Please edit documentation in R/read.weights.r
 \name{read.weights}
 \alias{read.weights}
-\title{Reads weights to aggregate yields to regions}
+\title{Reads weights to aggregate GGCMI yields to regions}
 \usage{
 read.weights(crop, weights)
 }
 \arguments{
 \item{crop}{One of "maize", "winter_wheat", "spring_wheat",
-"soybeans", or "rice".}
+"soybeans", "wheat", or "rice".}
 
 \item{weights}{One of "none", "area", or "production".}
 }
 \value{
 A dataset with three columns (lat, lon, weight) which is
 merged with the yield data for aggregation. In the
-\link[GGCMIAG]{agg.wrapper()} function, the outpout of
-\link[GGCMIAG]{read.weights} is called 'weight.map'.
+\link[GGCMIAGG]{agg.wrapper} function, the argument \code{weight.map}
+takes the output of this function.
 }
 \description{
+This function should work with either CMIP5 or CMIP6 yields.
+}
+\details{
 Reads harvested harea (in ha) or production (in metric tones) uses
 to weight relative yield changes in the aggregation from gridcells
 to regions such as countries. The data for maize, soybeans, rice
-and wheat is available in both ha and mt, and comes from
-\link[Monfreda et
-al.]{http://www.earthstat.org/harvested-area-yield-175-crops/}. Only
-area weights are available for winter and spring wheat; these are
-from
-\link[MIRCA]{https://www.isimip.org/gettingstarted/details/14/}.
+and wheat is available in both ha and mt, and comes from \href{http://www.earthstat.org/harvested-area-yield-175-crops/}{Monfreda et al.}
+Only area weights are available for winter and spring wheat; these
+are from
+\href{https://www.isimip.org/gettingstarted/details/14/}{MIRCA}.
 }

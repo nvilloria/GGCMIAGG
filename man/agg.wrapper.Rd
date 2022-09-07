@@ -2,20 +2,20 @@
 % Please edit documentation in R/agg.wrapper.r
 \name{agg.wrapper}
 \alias{agg.wrapper}
-\title{Runs all the functions needed for aggregating the GGCMI yields.}
+\title{Runs all the functions needed for aggregating the GGCMI-CMIP6 yields.}
 \usage{
 agg.wrapper(datafile, crop, regions = "countries", weights)
 }
 \arguments{
 \item{datafile}{Character string with the name of a RData file
-provided by Jonas, inclusive of path e.g
+provided by Jonas. May include a path e.g
 "../data/dssat-pythia_gfdl-esm4_ssp126_default_production_and_yield_grid.RData"}
 
 \item{crop}{One of "maize", "winter_wheat", "spring_wheat",
-"soybeans", or "rice".}
+"soybeans", "wheat", or "rice".}
 
-\item{regions}{Current options are are "countries" and
-"countriesAEZ18". Default is "countries".}
+\item{regions}{See values for argument \code{region.map} in the
+\link[GGCMIAGG]{grid.agg} function.}
 
 \item{weights}{Either NULL (when 'weights' = "none" in
 'agg.wrapper()') or the output of 'read.weights()'}
@@ -27,5 +27,7 @@ the grid-cell weighted average of relative yields.
 }
 \description{
 The function sequentially runs the three functions needed to get
-the aggregate yields.
+the aggregate yields: \link[GGCMIAGG]{read.weights},
+\link[GGCMIAGG]{read.GGCMI.RData},  and
+\link[GGCMIAGG]{grid.agg}.
 }

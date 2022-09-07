@@ -1,14 +1,16 @@
-#' Reads RData files with GGCMI yields
+#' Reads RData files with GGCMI-CMIP6 yields in RData format
 #'
-#' Function to read yield data (relative changes in percent compared
-#' with the reference period 1983-2013) from the third (?) generation
-#' of GGCMI runs provided by Jonas Jagermeyr on June 01, 2022.
+#' Reads yield data (relative changes in percent compared with the
+#' reference period 1983-2013) from the CMIP6 generation of GGCMI runs
+#' provided by Jonas Jagermeyr on June 01, 2022. See [Jagermeyr et
+#' al.](https://www.nature.com/articles/s43016-021-00400-y) for
+#' description.
 #'
 #' @param datafile Character string with the name of a RData file
 #'     provided by Jonas, inclusive of path e.g
 #'     "../data/dssat-pythia_gfdl-esm4_ssp126_default_production_and_yield_grid.RData"
-#' @param crop One of "maize", "winter_wheat",
-#'     "spring_wheat","soybeans", or "rice".
+#' @param crop One of "maize", "winter_wheat", "spring_wheat",
+#'     "soybeans", "wheat", or "rice".
 #' @return A four-column dataframe
 #'     ("lon","lat","time","value"). "time" are all the years in the
 #'     dataset (e.g., for future runs 2016:2099), and value are the
@@ -36,11 +38,13 @@ read.GGCMI.RData <- function(datafile = NULL, crop = NULL){
     dimnames(yield_grid) <- list(lons, lats, years, cropnames)
     ## Select specific crop:
     yield_grid_c  <- yield_grid[ , , ,crop]
-    ## Collapse the yield array so it becomes a column:
-    ## require(reshape2, quietly=TRUE)
-    yield.long <- reshape2::melt(yield_grid_c)
-    names(yield.long) <- c("lon","lat","time","value")
-    ## Eliminate NAs
-    yield.long <- yield.long[complete.cases(yield.long),]
-    return(yield.long)
+    return(yield_grid_c)
+
+    ## ## Collapse the yield array so it becomes a column:
+    ## ## require(reshape2, quietly=TRUE)
+    ## yield.long <- reshape2::melt(yield_grid_c)
+    ## names(yield.long) <- c("lon","lat","time","value")
+    ## ## Eliminate NAs
+    ## ## yield.long <- yield.long[complete.cases(yield.long),]
+    ## return(yield.long)
     }

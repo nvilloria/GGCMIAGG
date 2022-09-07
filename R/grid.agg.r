@@ -1,4 +1,6 @@
-#' Aggregates yield data to regions
+#' Aggregates GGCMI yield data to regions
+#'
+#' This function should work with either CMIP5 or CMIP6 yields.
 #'
 #' Aggregates from the gridcell to the regions in region.map. The
 #' function \link[GGCMIAGG]{read.GGCMI.RData} (or `read.AgMIP.nc` in
@@ -7,8 +9,9 @@
 #' argument `weight.map`.
 #'
 #' @param data2agg A dataframe produced by `read.GGCMI.RData()`
-#' @param region.map A regional mapping. Current options are are
-#'     "countries" and "countriesAEZ18". Default is "countries".
+#' @param region.map  A regional mapping. Current options are
+#'     "countries", "regionsGTAPV10.1" and "countriesAEZ18". Default
+#'     is "countries".
 #' @param weight.map Either NULL (when 'weights' = "none" in
 #'     'agg.wrapper()') or the output of 'read.weights()'
 #' @return A dataframe with three columns: countries (or other
@@ -16,7 +19,14 @@
 #'     of relative yields.
 
 grid.agg <- function(data2agg=NULL, region.map="countries", weight.map=NULL){
-    ## Readregional maps:
+
+    ## Collapse the yield array so it becomes a column:
+    ## require(reshape2, quietly=TRUE)
+    yield.long <- reshape2::melt(data2agg)
+    names(yield.long) <- c("lon","lat","time","value")
+    data2agg <- yield.long
+
+    ## Read regional maps:
     data( list = region.map, envir=environment())
     assign("region.data",get(region.map))
     require(dplyr, quietly=TRUE)
@@ -41,7 +51,7 @@ grid.agg <- function(data2agg=NULL, region.map="countries", weight.map=NULL){
     ## AGGREGATION
     if(is.null(weight.map)){
         agg <- d %>% group_by(id, time) %>%
-            summarize(mean = mean(value))
+            summarize(mean = mean(value, na.rm = TRUE))
     }else{
         ## Check weigths file:
         if(ncol(weight.map)>4)
@@ -52,7 +62,7 @@ grid.agg <- function(data2agg=NULL, region.map="countries", weight.map=NULL){
         suppressMessages(d <- dplyr::left_join(d,weight.map , by =c("lon","lat")))
         d <- d[complete.cases(d),]
         ## Weighted Average:
-        agg <- d%>% group_by(id,time) %>% summarize(w.ave.yield = weighted.mean(value, weight))
+        agg <- d%>% group_by(id,time) %>% summarize(w.ave.yield = weighted.mean(value, weight, na.rm = TRUE))
     }
     agg
 }
