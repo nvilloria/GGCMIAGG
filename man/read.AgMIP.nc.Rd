@@ -34,7 +34,5 @@ function converts the selected ncdf file into a table with four
 columns: lon, lat, year, and projected.yield. NAs are eliminated.
 This function is not used for the version of the tool using the
 second generation of the GGCMI runs, but it is kept for legacy.
-}
-\details{
 This function should work with either CMIP5 or CMIP6 yields.
 }
