@@ -52,9 +52,10 @@ read.AgMIP.nc <- function(file, start_year, end_year, yield_crop, var_lon, var_l
     ## Set non-land areas to NA before further processing:
     fillvalue <- ncatt_get(ncfile,yield_crop,"_FillValue")
     yield[yield==fillvalue$value] <- NA
-    ## Collapse the yield array so it becomes a column:
-    yield.long <- melt(yield)
-    names(yield.long) <- c("lon","lat","time","value")
-    ## Eliminate NAs
-    yield.long <- yield.long[complete.cases(yield.long),]
+    return(yield)
+    ## ## Collapse the yield array so it becomes a column:
+    ## yield.long <- melt(yield)
+    ## names(yield.long) <- c("lon","lat","time","value")
+    ## ## Eliminate NAs
+    ## yield.long <- yield.long[complete.cases(yield.long),]
 }
