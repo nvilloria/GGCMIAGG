@@ -1,11 +1,26 @@
-## The function read.AgMIP.nc takes as an argument a file name
-## (character string) that identifies a unique ntcdf file, start year,
-## end year and variable id for yield, longitude, and latutude.
-## Please look into the hearder of your ncdf4 file for these
-## variables.  The function converts the selected ncdf file into a
-## table with four columns: lon, lat, year, and projected.yield. NAs
-## are eliminated.  This function is not used for the version of the
-## tool using the second generation of the GGCMI runs, but it is kept for legacy.
+#' Reads GGCMI yields from netcdf files
+#'
+#' The function read.AgMIP.nc takes as an argument a file
+#' name(character string) that identifies a unique ntcdf file, start
+#' year, end year and variable id for yield, longitude, and latitude.
+#' Look into the header of the ncdf4 file for these variables.  The
+#' function converts the selected ncdf file into a table with four
+#' columns: lon, lat, year, and projected.yield. NAs are eliminated.
+#' This function is not used for the version of the tool using the
+#' second generation of the GGCMI runs, but it is kept for legacy.
+#'
+#' This function should work with either CMIP5 or CMIP6 yields.
+#'
+#' @param file A NetCDF file with GGCMI yields
+#' @param start_year First year to be extracted.
+#' @param end_year Last year to be extracted.
+#' @param yield_crop The name of the variable containing the yields in
+#'     the netcdf file. In the CMIP 5 yields it was a crop name. In
+#'     the CMIP 6 yiels it's 'yield cahange'
+#' @param var_lon Longitude variable in the NetCDF file.
+#' @param var_lat Latitude variable in the NetCDF file.
+#' @return A dataframe with four columns: lon, lat, year, and
+#'     projected.yield. NAs are eliminated.
 
 read.AgMIP.nc <- function(file, start_year, end_year, yield_crop, var_lon, var_lat){
     require(ncdf4, quietly=TRUE)
