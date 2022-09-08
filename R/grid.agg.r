@@ -17,6 +17,7 @@
 #' @return A dataframe with three columns: countries (or other
 #'     regional identifier), year, and the grid-cell weighted average
 #'     of relative yields.
+#' @export
 
 grid.agg <- function(data2agg=NULL, region.map="countries", weight.map=NULL){
 

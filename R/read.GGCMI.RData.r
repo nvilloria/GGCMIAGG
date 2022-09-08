@@ -18,6 +18,7 @@
 #'     geographically by `grid.agg()`, which merges the lon/lat
 #'     variables to a lower resolution with the weights produced by
 #'     'read.weights()`.
+#' @export
 
 read.GGCMI.RData <- function(datafile = NULL, crop = NULL){
     cropnames <- c("maize", "winter_wheat", "spring_wheat", "soybeans", "rice")

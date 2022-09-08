@@ -18,6 +18,7 @@
 #' @return The output of \link[GGCMIAGG]{grid.agg}, that is, a dataframe with three
 #'     columns: countries (or other regional identifier), year, and
 #'     the grid-cell weighted average of relative yields.
+#' @export
 
 agg.wrapper <- function(datafile, crop, regions = "countries", weights){
     weight.map <- read.weights(crop, weights)

@@ -18,6 +18,7 @@
 #'     merged with the yield data for aggregation. In the
 #'     \link[GGCMIAGG]{agg.wrapper} function, the argument `weight.map`
 #'     takes the output of this function.
+#' @export
 
 read.weights <- function(crop, weights){
     if( !weights %in% c("none", "area", "production") ){

@@ -20,6 +20,7 @@
 #' @param var_lat Latitude variable in the NetCDF file.
 #' @return A dataframe with four columns: lon, lat, year, and
 #'     projected.yield. NAs are eliminated.
+#' @export
 
 read.AgMIP.nc <- function(file, start_year, end_year, yield_crop, var_lon, var_lat){
     require(ncdf4, quietly=TRUE)
