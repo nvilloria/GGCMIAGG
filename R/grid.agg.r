@@ -9,9 +9,12 @@
 #' argument `weight.map`.
 #'
 #' @param data2agg A dataframe produced by `read.GGCMI.RData()`
-#' @param region.map  A regional mapping. Current options are
-#'     "countries", "regionsGTAPV10.1" and "countriesAEZ18". Default
-#'     is "countries".
+#' @param region.map A regional mapping. Current options are
+#'     "countries", "regionsGTAPV10.1" and "countriesAEZ18" or
+#'     "custom". If "custom" is chosen, a custom map should be
+#'     provided. Default is "countries".
+#' @param custom.map A regional mapping from gridcells to user-defined
+#'     region with columns labeled lon, lat, and id.
 #' @param weight.map Either NULL (when 'weights' = "none" in
 #'     'agg.wrapper()') or the output of 'read.weights()'
 #' @return A dataframe with three columns: countries (or other
@@ -19,7 +22,7 @@
 #'     of relative yields.
 #' @export
 
-grid.agg <- function(data2agg=NULL, region.map="countries", weight.map=NULL){
+grid.agg <- function(data2agg=NULL, region.map="countries", custom.map = NULL, weight.map=NULL){
 
     ## Collapse the yield array so it becomes a column:
     ## require(reshape2, quietly=TRUE)
@@ -28,8 +31,12 @@ grid.agg <- function(data2agg=NULL, region.map="countries", weight.map=NULL){
     data2agg <- yield.long
 
     ## Read regional maps:
-    data( list = region.map, envir=environment())
-    assign("region.data",get(region.map))
+    if( region.map == "custom" ){
+        region.data <- custom.map
+    }else{
+        data( list = region.map, envir=environment())
+        assign("region.data",get(region.map))
+        }
     require(dplyr, quietly=TRUE)
     ## Check data to be aggregated:
     if(ncol(data2agg)>4)

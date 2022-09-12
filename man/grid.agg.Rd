@@ -4,14 +4,23 @@
 \alias{grid.agg}
 \title{Aggregates GGCMI yield data to regions}
 \usage{
-grid.agg(data2agg = NULL, region.map = "countries", weight.map = NULL)
+grid.agg(
+  data2agg = NULL,
+  region.map = "countries",
+  custom.map = NULL,
+  weight.map = NULL
+)
 }
 \arguments{
 \item{data2agg}{A dataframe produced by \code{read.GGCMI.RData()}}
 
 \item{region.map}{A regional mapping. Current options are
-"countries", "regionsGTAPV10.1" and "countriesAEZ18". Default
-is "countries".}
+"countries", "regionsGTAPV10.1" and "countriesAEZ18" or
+"custom". If "custom" is chosen, a custom map should be
+provided. Default is "countries".}
+
+\item{custom.map}{A regional mapping from gridcells to user-defined
+region with columns labeled lon, lat, and id.}
 
 \item{weight.map}{Either NULL (when 'weights' = "none" in
 'agg.wrapper()') or the output of 'read.weights()'}
