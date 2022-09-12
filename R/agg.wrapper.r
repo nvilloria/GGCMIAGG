@@ -10,8 +10,14 @@
 #'     "../data/dssat-pythia_gfdl-esm4_ssp126_default_production_and_yield_grid.RData"
 #' @param crop One of "maize", "winter_wheat", "spring_wheat",
 #'     "soybeans", "wheat", or "rice".
-#' @param regions See values for argument `region.map` in the
-#'     \link[GGCMIAGG]{grid.agg} function.
+#' @param region.map A regional mapping. Current options are
+#'     "countries", "regionsGTAPV10.1" and "countriesAEZ18" or
+#'     "custom". If "custom" is chosen, a custom map should be
+#'     provided. Default is "countries". (See
+#'     \link[GGCMIAGG]{grid.agg}).
+#' @param custom.map A regional mapping from gridcells to user-defined
+#'     region with columns labeled lon, lat, and id. (See
+#'     \link[GGCMIAGG]{grid.agg})
 #' @param weights Either NULL (when 'weights' = "none" in
 #'     'agg.wrapper()') or the output of 'read.weights()'
 #'
@@ -20,7 +26,8 @@
 #'     the grid-cell weighted average of relative yields.
 #' @export
 
-agg.wrapper <- function(datafile, crop, regions = "countries", weights){
+agg.wrapper <- function(datafile, crop, region.map = "countries", custom.map = NULL,
+                        weights){
     weight.map <- read.weights(crop, weights)
     if( crop == "wheat"){
         wwh <- read.GGCMI.RData(datafile = .datafile, crop = "winter_wheat")
@@ -36,6 +43,7 @@ agg.wrapper <- function(datafile, crop, regions = "countries", weights){
             yielddat <- read.GGCMI.RData( datafile = datafile ,crop = crop )
             }
     yielddat.agg <- grid.agg( data2agg = yielddat,
-                             region.map= regions,
+                             region.map= region.map,
+                             custom.map = custom.map,
                              weight.map = weight.map)
 }

@@ -22,7 +22,7 @@
 #'     of relative yields.
 #' @export
 
-grid.agg <- function(data2agg=NULL, region.map="countries", custom.map = NULL, weight.map=NULL){
+grid.agg <- function(data2agg=NULL, region.map= NULL, custom.map = NULL, weight.map=NULL){
 
     ## Collapse the yield array so it becomes a column:
     ## require(reshape2, quietly=TRUE)

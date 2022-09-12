@@ -6,7 +6,7 @@
 \usage{
 grid.agg(
   data2agg = NULL,
-  region.map = "countries",
+  region.map = NULL,
   custom.map = NULL,
   weight.map = NULL
 )

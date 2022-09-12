@@ -4,7 +4,13 @@
 \alias{agg.wrapper}
 \title{Runs all the functions needed for aggregating the GGCMI-CMIP6 yields.}
 \usage{
-agg.wrapper(datafile, crop, regions = "countries", weights)
+agg.wrapper(
+  datafile,
+  crop,
+  region.map = "countries",
+  custom.map = NULL,
+  weights
+)
 }
 \arguments{
 \item{datafile}{Character string with the name of a RData file
@@ -14,8 +20,15 @@ provided by Jonas. May include a path e.g
 \item{crop}{One of "maize", "winter_wheat", "spring_wheat",
 "soybeans", "wheat", or "rice".}
 
-\item{regions}{See values for argument \code{region.map} in the
-\link[GGCMIAGG]{grid.agg} function.}
+\item{region.map}{A regional mapping. Current options are
+"countries", "regionsGTAPV10.1" and "countriesAEZ18" or
+"custom". If "custom" is chosen, a custom map should be
+provided. Default is "countries". (See
+\link[GGCMIAGG]{grid.agg}).}
+
+\item{custom.map}{A regional mapping from gridcells to user-defined
+region with columns labeled lon, lat, and id. (See
+\link[GGCMIAGG]{grid.agg})}
 
 \item{weights}{Either NULL (when 'weights' = "none" in
 'agg.wrapper()') or the output of 'read.weights()'}
