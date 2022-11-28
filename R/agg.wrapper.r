@@ -30,8 +30,8 @@ agg.wrapper <- function(datafile, crop, region.map = "countries", custom.map = N
                         weights){
     weight.map <- read.weights(crop, weights)
     if( crop == "wheat"){
-        wwh <- read.GGCMI.RData(datafile = .datafile, crop = "winter_wheat")
-        swh <- read.GGCMI.RData(datafile = .datafile, crop = "spring_wheat")
+        wwh <- read.GGCMI.RData(datafile = datafile, crop = "winter_wheat")
+        swh <- read.GGCMI.RData(datafile = datafile, crop = "spring_wheat")
         data(spring_wheat.mask)
         data(winter_wheat.mask)
         ## Wheat masks are binary and mutually exclusive so only one
