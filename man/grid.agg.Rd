@@ -35,8 +35,7 @@ This function should work with either CMIP5 or CMIP6 yields.
 }
 \details{
 Aggregates from the gridcell to the regions in region.map. The
-function \link[GGCMIAGG]{read.GGCMI.RData} (or \code{read.AgMIP.nc} in
-the previous version of the tool) produces the input to
+function \link[GGCMIAGG]{read.AgMIP.nc} produces the input to
 \code{data2agg}. \link[GGCMIAGG]{read.weights} produces the data for teh
 argument \code{weight.map}.
 }

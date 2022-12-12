@@ -2,7 +2,7 @@
 #'
 #' The function sequentially runs the three functions needed to get
 #' the aggregate yields: \link[GGCMIAGG]{read.weights},
-#' \link[GGCMIAGG]{read.GGCMI.RData},  and
+#' \link[GGCMIAGG]{read.AgMIP.nc},  and
 #' \link[GGCMIAGG]{grid.agg}.
 #'
 #' @param datafile Character string with the name of a RData file
