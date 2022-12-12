@@ -3,5 +3,4 @@
 export(agg.wrapper)
 export(grid.agg)
 export(read.AgMIP.nc)
-export(read.GGCMI.RData)
 export(read.weights)

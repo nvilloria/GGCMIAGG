@@ -17,8 +17,7 @@ agg.wrapper(
 provided by Jonas. May include a path e.g
 "../data/dssat-pythia_gfdl-esm4_ssp126_default_production_and_yield_grid.RData"}
 
-\item{crop}{One of "maize", "winter_wheat", "spring_wheat",
-"soybeans", "wheat", or "rice".}
+\item{crop}{One of "maize", "soybeans", "wheat", or "rice".}
 
 \item{region.map}{A regional mapping. Current options are
 "countries", "regionsGTAPV10.1" and "countriesAEZ18" or

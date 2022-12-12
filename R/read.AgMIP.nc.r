@@ -1,61 +1,54 @@
-#' Reads GGCMI yields from netcdf files
+#' Reads GGCMI yields from netcdf datafiles
 #'
-#' The function read.AgMIP.nc takes as an argument a file
-#' name(character string) that identifies a unique ntcdf file, start
-#' year, end year and variable id for yield, longitude, and latitude.
-#' Look into the header of the ncdf4 file for these variables.  The
-#' function converts the selected ncdf file into a table with four
-#' columns: lon, lat, year, and projected.yield. NAs are eliminated.
-#' This function is not used for the version of the tool using the
-#' second generation of the GGCMI runs, but it is kept for legacy.
-#' This function should work with either CMIP5 or CMIP6 yields.
+#' Reads yield data (relative changes in percent compared with the
+#' reference period 1983-2013) from the CMIP6 generation of GGCMI runs
+#' provided by Jonas Jagermeyr on December 9th, 2022. See [Jagermeyr
+#' et al.](https://www.nature.com/articles/s43016-021-00400-y) for
+#' description.
 #'
-#' @param file A NetCDF file with GGCMI yields
-#' @param start_year First year to be extracted.
-#' @param end_year Last year to be extracted.
-#' @param yield_crop The name of the variable containing the yields in
-#'     the netcdf file. In the CMIP 5 yields it was a crop name. In
-#'     the CMIP 6 yiels it's 'yield cahange'
-#' @param var_lon Longitude variable in the NetCDF file.
-#' @param var_lat Latitude variable in the NetCDF file.
-#' @return A dataframe with four columns: lon, lat, year, and
-#'     projected.yield. NAs are eliminated.
+#' @param datafile A NetCDF datafile with GGCMI yields for four crops
+#'     (see cropsinnc) below, for 0.5 degree gridcells and years
+#'     1983:2099. These are percentage changes in yields relative to
+#'     1983-2013. These were provided by AgMIP GRIDded crop modeling
+#'     initiative (Ag-GRID) coleads Jonas Jaegermeyr and Christoph
+#'     Mueller.
+#' @param start_year First year to be extracted. Defaults to 1983.
+#' @param end_year Last year to be extracted. Defaults to 2099.
+#' @param nc4varid The name of the variable containing the yields in
+#'     the netcdf datafile. Defaults to "yield change"
+#' @param targetcrop the crop (one of cropsinnc below) for which the
+#'     change in relative yields are requested.
+#' @param cropsinnc Available crops. Defaults to "maize", "wheat",
+#'     "soybeans" and "rice".
+#' @param var_lon Longitude variable in the NetCDF datafile. Defaults
+#'     to "lon".
+#' @param var_lat Latitude variable in the NetCDF datafile. Defaults
+#'     to "lat".
+#' @return A four-column dataframe
+#'     ("lon","lat","time","value"). "time" are all the years in the
+#'     dataset (e.g., for future runs 2016:2099), and value are the
+#'     relative yields for `crop`. The data is ready to be aggregated
+#'     geographically by `grid.agg()`, which merges the lon/lat
+#'     variables to a lower resolution with the weights produced by
+#'     'read.weights()`.
 #' @export
 
-read.AgMIP.nc <- function(file, start_year, end_year, yield_crop, var_lon, var_lat){
+read.AgMIP.nc <- function(datafile, start_year=1983, end_year=2099, nc4varid='yield change', targetcrop,
+                          cropsinnc=c("maize", "wheat", "soybeans", "rice"),
+                          var_lon="lon", var_lat="lat"){
     require(ncdf4, quietly=TRUE)
     suppressMessages(require(reshape, quietly=TRUE))
-    ncfile <- nc_open(file)
+    ncdatafile <- nc_open(datafile)
     ## Get the longitudes and latitudes --- these are later used to
     ## identify the coordinate pairs for each climate observation:
-    lon <- ncvar_get(ncfile, varid=var_lon)
-    lat <- ncvar_get(ncfile, varid=var_lat)
+    lon <- ncvar_get(ncdatafile, varid=var_lon)
+    lat <- ncvar_get(ncdatafile, varid=var_lat)
     time <- c(start_year:end_year)
-
-    # print(lon)
-    # print(lat)
-    # print(time)
-    # print(list(lon,lat,time))
-
     ## Read yields (an array of 720X360X6):
-    yield <- ncvar_get(ncfile, varid=yield_crop)
-
-    # Change to three dimensional data
-    if(length(dim(yield))==2) {
-        yield <- array(yield, dim=c(dim(yield)[1], dim(yield)[2], 1))
-    }
+    yield <- ncvar_get(ncdatafile, varid=nc4varid)
     ## Assign the longitudes and latitudes to facilitate merging with
-    ## the other files:
-
-    dimnames(yield) <- list(lon,lat,time)
-
-    ## Set non-land areas to NA before further processing:
-    fillvalue <- ncatt_get(ncfile,yield_crop,"_FillValue")
-    yield[yield==fillvalue$value] <- NA
+    ## the other datafiles:
+    dimnames(yield) <- list(lon,lat,time,cropsinnc)
+    yield <- yield[,,,targetcrop]
     return(yield)
-    ## ## Collapse the yield array so it becomes a column:
-    ## yield.long <- melt(yield)
-    ## names(yield.long) <- c("lon","lat","time","value")
-    ## ## Eliminate NAs
-    ## yield.long <- yield.long[complete.cases(yield.long),]
 }

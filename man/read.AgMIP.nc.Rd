@@ -2,37 +2,58 @@
 % Please edit documentation in R/read.AgMIP.nc.r
 \name{read.AgMIP.nc}
 \alias{read.AgMIP.nc}
-\title{Reads GGCMI yields from netcdf files}
+\title{Reads GGCMI yields from netcdf datafiles}
 \usage{
-read.AgMIP.nc(file, start_year, end_year, yield_crop, var_lon, var_lat)
+read.AgMIP.nc(
+  datafile,
+  start_year = 1983,
+  end_year = 2099,
+  nc4varid = "yield change",
+  targetcrop,
+  cropsinnc = c("maize", "wheat", "soybeans", "rice"),
+  var_lon = "lon",
+  var_lat = "lat"
+)
 }
 \arguments{
-\item{file}{A NetCDF file with GGCMI yields}
+\item{datafile}{A NetCDF datafile with GGCMI yields for four crops
+(see cropsinnc) below, for 0.5 degree gridcells and years
+1983:2099. These are percentage changes in yields relative to
+1983-2013. These were provided by AgMIP GRIDded crop modeling
+initiative (Ag-GRID) coleads Jonas Jaegermeyr and Christoph
+Mueller.}
 
-\item{start_year}{First year to be extracted.}
+\item{start_year}{First year to be extracted. Defaults to 1983.}
 
-\item{end_year}{Last year to be extracted.}
+\item{end_year}{Last year to be extracted. Defaults to 2099.}
 
-\item{yield_crop}{The name of the variable containing the yields in
-the netcdf file. In the CMIP 5 yields it was a crop name. In
-the CMIP 6 yiels it's 'yield cahange'}
+\item{nc4varid}{The name of the variable containing the yields in
+the netcdf datafile. Defaults to "yield change"}
 
-\item{var_lon}{Longitude variable in the NetCDF file.}
+\item{targetcrop}{the crop (one of cropsinnc below) for which the
+change in relative yields are requested.}
 
-\item{var_lat}{Latitude variable in the NetCDF file.}
+\item{cropsinnc}{Available crops. Defaults to "maize", "wheat",
+"soybeans" and "rice".}
+
+\item{var_lon}{Longitude variable in the NetCDF datafile. Defaults
+to "lon".}
+
+\item{var_lat}{Latitude variable in the NetCDF datafile. Defaults
+to "lat".}
 }
 \value{
-A dataframe with four columns: lon, lat, year, and
-projected.yield. NAs are eliminated.
+A four-column dataframe
+("lon","lat","time","value"). "time" are all the years in the
+dataset (e.g., for future runs 2016:2099), and value are the
+relative yields for \code{crop}. The data is ready to be aggregated
+geographically by \code{grid.agg()}, which merges the lon/lat
+variables to a lower resolution with the weights produced by
+'read.weights()`.
 }
 \description{
-The function read.AgMIP.nc takes as an argument a file
-name(character string) that identifies a unique ntcdf file, start
-year, end year and variable id for yield, longitude, and latitude.
-Look into the header of the ncdf4 file for these variables.  The
-function converts the selected ncdf file into a table with four
-columns: lon, lat, year, and projected.yield. NAs are eliminated.
-This function is not used for the version of the tool using the
-second generation of the GGCMI runs, but it is kept for legacy.
-This function should work with either CMIP5 or CMIP6 yields.
+Reads yield data (relative changes in percent compared with the
+reference period 1983-2013) from the CMIP6 generation of GGCMI runs
+provided by Jonas Jagermeyr on December 9th, 2022. See \href{https://www.nature.com/articles/s43016-021-00400-y}{Jagermeyr et al.} for
+description.
 }

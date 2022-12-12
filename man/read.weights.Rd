@@ -7,8 +7,7 @@
 read.weights(crop, weights)
 }
 \arguments{
-\item{crop}{One of "maize", "winter_wheat", "spring_wheat",
-"soybeans", "wheat", or "rice".}
+\item{crop}{One of "maize", "soybeans", "wheat", or "rice".}
 
 \item{weights}{One of "none", "area", or "production".}
 }
@@ -25,8 +24,5 @@ This function should work with either CMIP5 or CMIP6 yields.
 Reads harvested harea (in ha) or production (in metric tones) uses
 to weight relative yield changes in the aggregation from gridcells
 to regions such as countries. The data for maize, soybeans, rice
-and wheat is available in both ha and mt, and comes from \href{http://www.earthstat.org/harvested-area-yield-175-crops/}{Monfreda et al.}
-Only area weights are available for winter and spring wheat; these
-are from
-\href{https://www.isimip.org/gettingstarted/details/14/}{MIRCA}.
+and wheat is available in both ha and mt, and comes from \href{http://www.earthstat.org/harvested-area-yield-175-crops/}{Monfreda et al.}.
 }
