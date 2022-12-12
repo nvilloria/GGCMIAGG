@@ -54,6 +54,6 @@ variables to a lower resolution with the weights produced by
 \description{
 Reads yield data (relative changes in percent compared with the
 reference period 1983-2013) from the CMIP6 generation of GGCMI runs
-provided by Jonas Jagermeyr on December 9th, 2022. See \href{https://www.nature.com/articles/s43016-021-00400-y}{Jagermeyr et al.} for
+provided by Jonas Jaegermeyr on December 9th, 2022. See \href{https://www.nature.com/articles/s43016-021-00400-y}{Jaegermeyr et al.} for
 description.
 }

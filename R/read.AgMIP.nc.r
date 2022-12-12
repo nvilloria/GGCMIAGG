@@ -2,7 +2,7 @@
 #'
 #' Reads yield data (relative changes in percent compared with the
 #' reference period 1983-2013) from the CMIP6 generation of GGCMI runs
-#' provided by Jonas Jagermeyr on December 9th, 2022. See [Jagermeyr
+#' provided by Jonas Jaegermeyr on December 9th, 2022. See [Jaegermeyr
 #' et al.](https://www.nature.com/articles/s43016-021-00400-y) for
 #' description.
 #'
