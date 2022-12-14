@@ -17,8 +17,12 @@
 #' @param custom.map A regional mapping from gridcells to user-defined
 #'     region with columns labeled lon, lat, and id. (See
 #'     \link[GGCMIAGG]{grid.agg})
-#' @param weights Either NULL (when 'weights' = "none" in
-#'     'agg.wrapper()') or the output of 'read.weights()'
+#' @param weights One of "none", "area", "production".
+#' @param type Either "relative" (default) or "physical". Relative are
+#'     percentage changes relative to the reference period
+#'     1983-2013. Physical are in MT/ha.
+#' @param irrigation Either "total" (default), "rainfed", or
+#'     "irrigated". It only matters when type="physical".
 #'
 #' @return The output of \link[GGCMIAGG]{grid.agg}, that is, a dataframe with three
 #'     columns: countries (or other regional identifier), year, and
@@ -26,9 +30,16 @@
 #' @export
 
 agg.wrapper <- function(datafile, crop, region.map = "countries", custom.map = NULL,
-                        weights){
+                        weights, type="relative", irrigation="total"){
     weight.map <- read.weights(crop, weights)
     yielddat <- read.AgMIP.nc( datafile = datafile , targetcrop = crop )
+    if(type=="physical"){
+        data(observational_reference_yield)
+        base.yields <- observational_reference_yield[,,crop,irrigation]
+        yielddat <- simplify2array(apply(yielddat,3,function(x) (x/100 + 1)*base.yields,simplify=FALSE))
+    }else{
+        yielddat
+        }
     yielddat.agg <- grid.agg( data2agg = yielddat,
                              region.map= region.map,
                              custom.map = custom.map,

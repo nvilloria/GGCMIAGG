@@ -9,7 +9,9 @@ agg.wrapper(
   crop,
   region.map = "countries",
   custom.map = NULL,
-  weights
+  weights,
+  type = "relative",
+  irrigation = "total"
 )
 }
 \arguments{
@@ -29,8 +31,14 @@ provided. Default is "countries". (See
 region with columns labeled lon, lat, and id. (See
 \link[GGCMIAGG]{grid.agg})}
 
-\item{weights}{Either NULL (when 'weights' = "none" in
-'agg.wrapper()') or the output of 'read.weights()'}
+\item{weights}{One of "none", "area", "production".}
+
+\item{type}{Either "relative" (default) or "physical". Relative are
+percentage changes relative to the reference period
+1983-2013. Physical are in MT/ha.}
+
+\item{irrigation}{Either "total" (default), "rainfed", or
+"irrigated". It only matters when type="physical".}
 }
 \value{
 The output of \link[GGCMIAGG]{grid.agg}, that is, a dataframe with three
