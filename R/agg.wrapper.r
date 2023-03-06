@@ -10,7 +10,7 @@
 #'     "../data/dssat-pythia_gfdl-esm4_ssp126_default_production_and_yield_grid.RData"
 #' @param crop One of "maize", "soybeans", "wheat", or "rice".
 #' @param region.map A regional mapping. Current options are
-#'     "countries", "regionsGTAPV10.1" and "countriesAEZ18" or
+#'     "countries", "regionsGTAPV10.1" and "GTAPV11AEZREGS" or
 #'     "custom". If "custom" is chosen, a custom map should be
 #'     provided. Default is "countries". (See
 #'     \link[GGCMIAGG]{grid.agg}).

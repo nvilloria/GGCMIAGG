@@ -22,7 +22,7 @@ provided by Jonas. May include a path e.g
 \item{crop}{One of "maize", "soybeans", "wheat", or "rice".}
 
 \item{region.map}{A regional mapping. Current options are
-"countries", "regionsGTAPV10.1" and "countriesAEZ18" or
+"countries", "regionsGTAPV10.1" and "GTAPV11AEZREGS" or
 "custom". If "custom" is chosen, a custom map should be
 provided. Default is "countries". (See
 \link[GGCMIAGG]{grid.agg}).}

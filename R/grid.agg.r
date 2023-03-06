@@ -9,7 +9,7 @@
 #'
 #' @param data2agg A dataframe produced by `read.GGCMI.RData()`
 #' @param region.map A regional mapping. Current options are
-#'     "countries", "regionsGTAPV10.1" and "countriesAEZ18" or
+#'     "countries", "regionsGTAPV10.1" and "GTAPV11AEZREGS" or
 #'     "custom". If "custom" is chosen, a custom map should be
 #'     provided. Default is "countries".
 #' @param custom.map A regional mapping from gridcells to user-defined

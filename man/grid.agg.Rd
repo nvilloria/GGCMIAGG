@@ -15,7 +15,7 @@ grid.agg(
 \item{data2agg}{A dataframe produced by \code{read.GGCMI.RData()}}
 
 \item{region.map}{A regional mapping. Current options are
-"countries", "regionsGTAPV10.1" and "countriesAEZ18" or
+"countries", "regionsGTAPV10.1" and "GTAPV11AEZREGS" or
 "custom". If "custom" is chosen, a custom map should be
 provided. Default is "countries".}
 
