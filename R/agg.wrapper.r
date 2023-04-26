@@ -23,6 +23,8 @@
 #'     1983-2013. Physical are in MT/ha.
 #' @param irrigation Either "total" (default), "rainfed", or
 #'     "irrigated". It only matters when type="physical".
+#' @param is.ensemble set to TRUE if aggregating ensemble means. By
+#'     default is FALSE.
 #'
 #' @return The output of \link[GGCMIAGG]{grid.agg}, that is, a dataframe with three
 #'     columns: countries (or other regional identifier), year, and
@@ -30,9 +32,9 @@
 #' @export
 
 agg.wrapper <- function(datafile, crop, region.map = "countries", custom.map = NULL,
-                        weights, type="relative", irrigation="total"){
+                        weights, type="relative", irrigation="total",is.ensemble=FALSE){
     weight.map <- read.weights(crop, weights)
-    yielddat <- read.AgMIP.nc( datafile = datafile , targetcrop = crop )
+    yielddat <- read.AgMIP.nc( datafile = datafile , targetcrop = crop,ensemble = is.ensemble )
     if(type=="physical"){
         data(observational_reference_yield)
         base.yields <- observational_reference_yield[,,crop,irrigation]

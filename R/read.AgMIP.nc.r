@@ -24,6 +24,7 @@
 #'     to "lon".
 #' @param var_lat Latitude variable in the NetCDF datafile. Defaults
 #'     to "lat".
+#' @param ensemble TRUE if aggregating ensemble means. By default is FALSE.
 #' @return A four-column dataframe
 #'     ("lon","lat","time","value"). "time" are all the years in the
 #'     dataset (e.g., for future runs 2016:2099), and value are the
@@ -35,7 +36,7 @@
 
 read.AgMIP.nc <- function(datafile, start_year=1983, end_year=2099, nc4varid='yield change', targetcrop,
                           cropsinnc=c("maize", "wheat", "soybeans", "rice"),
-                          var_lon="lon", var_lat="lat"){
+                          var_lon="lon", var_lat="lat", ensemble=FALSE){
     require(ncdf4, quietly=TRUE)
     suppressMessages(require(reshape, quietly=TRUE))
     ncdatafile <- nc_open(datafile)
@@ -48,7 +49,11 @@ read.AgMIP.nc <- function(datafile, start_year=1983, end_year=2099, nc4varid='yi
     yield <- ncvar_get(ncdatafile, varid=nc4varid)
     ## Assign the longitudes and latitudes to facilitate merging with
     ## the other datafiles:
-    dimnames(yield) <- list(lon,lat,time,cropsinnc)
-    yield <- yield[,,,targetcrop]
+    if( ensemble==FALSE ){
+        dimnames(yield) <- list(lon,lat,time,cropsinnc)
+        yield <- yield[,,,targetcrop]
+    }else{
+        dimnames(yield) <- list(lon,lat,time)
+        }
     return(yield)
 }

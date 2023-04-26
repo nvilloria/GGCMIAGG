@@ -12,7 +12,8 @@ read.AgMIP.nc(
   targetcrop,
   cropsinnc = c("maize", "wheat", "soybeans", "rice"),
   var_lon = "lon",
-  var_lat = "lat"
+  var_lat = "lat",
+  ensemble = FALSE
 )
 }
 \arguments{
@@ -41,6 +42,8 @@ to "lon".}
 
 \item{var_lat}{Latitude variable in the NetCDF datafile. Defaults
 to "lat".}
+
+\item{ensemble}{TRUE if aggregating ensemble means. By default is FALSE.}
 }
 \value{
 A four-column dataframe

@@ -11,7 +11,8 @@ agg.wrapper(
   custom.map = NULL,
   weights,
   type = "relative",
-  irrigation = "total"
+  irrigation = "total",
+  is.ensemble = FALSE
 )
 }
 \arguments{
@@ -39,6 +40,9 @@ percentage changes relative to the reference period
 
 \item{irrigation}{Either "total" (default), "rainfed", or
 "irrigated". It only matters when type="physical".}
+
+\item{is.ensemble}{set to TRUE if aggregating ensemble means. By
+default is FALSE.}
 }
 \value{
 The output of \link[GGCMIAGG]{grid.agg}, that is, a dataframe with three
